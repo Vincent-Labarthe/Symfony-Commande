@@ -3,21 +3,27 @@
 namespace App\Command;
 
 use App\Service\CsvService;
-use League\Csv\Reader;
-use League\Csv\Statement;
+use App\Service\ExecuteService;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+
 
 class ImportCsvCommand extends Command
 {
-    protected static $defaultName = 'app:import-csv';
+    const NAME ='app:import-csv';
+    const CONFIG = [
+        'title' => "Import CSV File",
+        'description' => "Permet d'importer et d'afficher un fichier csv",
+        'frequence' => 'A la demande et tous les jours entre 7h00 et 19h00',
+        'arguments' => [
+            'obligatoire' => ['Chemin du fichier csv à importer'],
+            'optionnel' => ['json (permet d\'afficher en JSON)']
+        ],
+    ];
 
     /**
      * @var CsvService Gestionnaire de service des fichiers CSV
@@ -25,13 +31,22 @@ class ImportCsvCommand extends Command
     private $csvService;
 
     /**
+     * ExecuteService
+     *
+     * @var ExecuteService
+     */
+    private $executeService;
+
+    /**
      * ImportCsvCommand constructor.
      *
      * @param CsvService $csvService Gestionnaire de service des fichiers CSV
+     * @param ExecuteService $executeService le service d'execussion
      */
-    public function __construct(CsvService $csvService)
+    public function __construct(CsvService $csvService, ExecuteService $executeService)
     {
-        $this->csvService =$csvService;
+        $this->csvService = $csvService;
+        $this->executeService = $executeService;
 
         parent::__construct();
     }
@@ -39,48 +54,25 @@ class ImportCsvCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Affiche une grille d\'information à partir d\'un ficher csv')
-            ->addArgument('path', InputArgument::OPTIONAL, 'chemin du fichier csv à importer')
+            ->setName(self::NAME)
+            ->setDescription(json_encode(self::CONFIG))
+            ->addArgument('path', InputArgument::REQUIRED, 'Chemin du fichier csv à importer')
             ->addOption('json', null, InputOption::VALUE_NONE, 'Afficher en JSON')
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    /**
+     * Exécution de la commande
+     *
+     * @param InputInterface $input Point d'entrée
+     * @param OutputInterface $output Point de sortie
+     *
+     * @throws \Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $io->title('Attempting import of CSV...');
-        $arg1 = $input->getArgument('path');
-        $helper = $this->getHelper('question');
-//        $question = new Question('Quel est le mot de passe ?', '');
-//        $pwd = $helper->ask($input, $output, $question);
-//        if ($pwd !== 'agenceDnD'){
-//            throw new \LogicException('Mot de passe incorrect');
-//        }
-
-        if ($arg1) {
-            $io->comment(sprintf('L\'arguement passe est : %s', $arg1));
-            $cvsFile = array_map(function($cvsFile) {return str_getcsv($cvsFile, ';'); }, file('%kernel.root_dir%/../'.$arg1));
-            $data = $this->csvService->extractCSVData($cvsFile);
-
-            foreach($data as $values){
-                $title = array_keys($values);
-            }
-
-            $table = new Table($output);
-            $table->setHeaders($title);
-            $table->setRows($data);
-            $table->render();
-            //$io->success();
-        }else{
-            throw new \LogicException('le chemin du fichier est manquant');
-        }
-
-        if ($input->getOption('json')) {
-            $io->note(sprintf('ok'));
-        }
-
-        $io->success('Le fichier csv a bien été importé');
-
-        return 0;
+        $io->title('Import of CSV...');
+        $this->executeService->executeCmd($input, $output,$input->getArgument('path'));
     }
 }

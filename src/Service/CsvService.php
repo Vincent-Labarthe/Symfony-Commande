@@ -35,7 +35,7 @@ class CsvService
 
             foreach($lists as $key => $list){
                 $lists[$key]['created_at'] = $this->formateDate($list['created_at']);
-                $lists[$key]['title'] = $this->formatTitle($list['title']);
+                $lists[$key]['description'] = $this->formatTitle($list['description']);
                 $lists[$key]['is_enabled'] = $this->trasnformIs_Enable($list['is_enabled']);
                 $lists[$key]['price'] = $this->formatPrice($list['price']);
                 $lists[$key]['slug'] = $this->slugify($list['title']);
@@ -65,7 +65,8 @@ class CsvService
      */
     private function formatTitle($title)
     {
-        return preg_replace('/\<(\s*)?br(\s*)?\/?\>/i', "\n", $title);
+        $value =['/(<br\ ?\/?>)+/', '/\\\r/'];
+        return preg_replace($value, "\n", $title);
     }
 
     /**

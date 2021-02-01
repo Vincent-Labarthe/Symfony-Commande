@@ -11,9 +11,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a530879-9801-4972-85ea-fe15b481b4f1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Service/ExecuteService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/library-php.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/library-php.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Command/ImportCsvCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/ImportCsvCommand.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/CsvService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/CsvService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +122,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
       <path value="$PROJECT_DIR$/vendor/symfony/intl" />
       <path value="$PROJECT_DIR$/vendor/symfony/validator" />
-      <path value="$PROJECT_DIR$/vendor/league/csv" />
+      <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
     </include_path>
   </component>
   <component name="ProjectId" id="1nnXEW9tFfCU7iQM7v4lcucoumh" />
@@ -148,7 +154,7 @@
       <option name="presentableId" value="Default" />
       <updated>1612026716467</updated>
       <workItem from="1612026717538" duration="12173000" />
-      <workItem from="1612110709945" duration="15026000" />
+      <workItem from="1612110709945" duration="25279000" />
     </task>
     <servers />
   </component>
@@ -176,18 +182,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="717" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1612110059649" />
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1612110281224">
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1612217823533">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612110281224" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612217823533" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1612098678800">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1612098678800" />
-    <state x="751" y="242" key="NewPhpClassDialog" timestamp="1612110067601">
+    <state x="751" y="242" key="NewPhpClassDialog" timestamp="1612217432471">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="751" y="242" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612110067601" />
+    <state x="751" y="242" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612217432471" />
     <state x="668" y="246" key="SettingsEditor" timestamp="1612110684654">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
