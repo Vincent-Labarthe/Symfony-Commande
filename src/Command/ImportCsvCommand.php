@@ -26,11 +26,6 @@ class ImportCsvCommand extends Command
     ];
 
     /**
-     * @var CsvService Gestionnaire de service des fichiers CSV
-     */
-    private $csvService;
-
-    /**
      * ExecuteService
      *
      * @var ExecuteService
@@ -45,7 +40,6 @@ class ImportCsvCommand extends Command
      */
     public function __construct(CsvService $csvService, ExecuteService $executeService)
     {
-        $this->csvService = $csvService;
         $this->executeService = $executeService;
 
         parent::__construct();

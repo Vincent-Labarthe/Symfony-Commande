@@ -17,6 +17,7 @@ class CsvService
      * Permet de transformer le ficher csv en array
      *
      * @param $cvsFile le fichier CSV
+     *
      * @return array|array[]
      * @throws \Exception
      */
@@ -55,6 +56,7 @@ class CsvService
     private function formateDate(string $createAt)
     {
         $date = new DateTime($createAt);
+
         return $date->format('l\, d-M-Y H:i:s e');
     }
 
@@ -73,11 +75,12 @@ class CsvService
      * permet d'afficher le libelle enable ou disable
      *
      * @param bool $isEnable est affiche ou pas
+     *
      * @return string
      */
     private function trasnformIs_Enable(bool $isEnable)
     {
-        if ($isEnable){
+        if ($isEnable) {
 
             return self::ENABLE;
         }
@@ -89,11 +92,12 @@ class CsvService
      * permet de formater le prix
      *
      * @param string $price le prix du produit
+     *
      * @return string
      */
     private function formatPrice(string $price)
     {
-       return number_format($price, 2, ',', null).'€';
+        return number_format($price, 2, ',', null) . '€';
     }
 
     /**
@@ -108,7 +112,7 @@ class CsvService
         $replace =
             [
                 '/[^a-zA-Z0-9\s]/' => "-",
-                '/\s/'=>'_',
+                '/\s/' => '_',
             ];
 
         return preg_replace(array_keys($replace), array_values($replace), strtolower(trim(strip_tags($title))));
