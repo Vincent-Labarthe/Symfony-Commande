@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -48,29 +49,37 @@ class ImportCsvCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $io->title('Attempting import of CSV...');
-
         $arg1 = $input->getArgument('path');
+        $helper = $this->getHelper('question');
+//        $question = new Question('Quel est le mot de passe ?', '');
+//        $pwd = $helper->ask($input, $output, $question);
+//        if ($pwd !== 'agenceDnD'){
+//            throw new \LogicException('Mot de passe incorrect');
+//        }
 
         if ($arg1) {
-            $io->note(sprintf('L\'arguement passé est : %s', $arg1));
-            $rows = array_map(function($row) {return str_getcsv($row, ';'); }, file('%kernel.root_dir%/../'.$arg1));
-            $data = $this->csvService->extractCSVData($rows);
-            $table = new Table($output);
-            $rows[0][] ='slug';
-            $table->setHeaders($rows[0]);
+            $io->comment(sprintf('L\'arguement passe est : %s', $arg1));
+            $cvsFile = array_map(function($cvsFile) {return str_getcsv($cvsFile, ';'); }, file('%kernel.root_dir%/../'.$arg1));
+            $data = $this->csvService->extractCSVData($cvsFile);
 
+            foreach($data as $values){
+                $title = array_keys($values);
+            }
+
+            $table = new Table($output);
+            $table->setHeaders($title);
+            $table->setRows($data);
             $table->render();
             //$io->success();
         }else{
             throw new \LogicException('le chemin du fichier est manquant');
-
         }
 
         if ($input->getOption('json')) {
             $io->note(sprintf('ok'));
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('Le fichier csv a bien été importé');
 
         return 0;
     }

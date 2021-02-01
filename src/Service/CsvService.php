@@ -16,17 +16,17 @@ class CsvService
     /**
      * Permet de transformer le ficher csv en array
      *
-     * @param $arg1
+     * @param $cvsFile le fichier CSV
      * @return array|array[]
      * @throws \Exception
      */
-    public function extractCSVData($rows)
+    public function extractCSVData($cvsFile)
     {
             // en se basant sur le fait que chaque fichier csv aura la meme structure
-            $data['title'] = $rows[0];
-            unset($rows[0]);
+            $data['title'] = $cvsFile[0];
+            unset($cvsFile[0]);
             $data['title'];
-            $data['rows'] = $rows;
+            $data['rows'] = $cvsFile;
 
             //on combine le tableau pour remplace les clés par les titres
             foreach ($data['rows'] as $row) {
@@ -35,6 +35,7 @@ class CsvService
 
             foreach($lists as $key => $list){
                 $lists[$key]['created_at'] = $this->formateDate($list['created_at']);
+                $lists[$key]['title'] = $this->formatTitle($list['title']);
                 $lists[$key]['is_enabled'] = $this->trasnformIs_Enable($list['is_enabled']);
                 $lists[$key]['price'] = $this->formatPrice($list['price']);
                 $lists[$key]['slug'] = $this->slugify($list['title']);
@@ -58,7 +59,17 @@ class CsvService
     }
 
     /**
-     * permet d'affiche le libelle enable ou disable
+     * permet de prendre en compte les balises HTML
+     *
+     * @param $title
+     */
+    private function formatTitle($title)
+    {
+        return preg_replace('/\<(\s*)?br(\s*)?\/?\>/i', "\n", $title);
+    }
+
+    /**
+     * permet d'afficher le libelle enable ou disable
      *
      * @param bool $isEnable est affiche ou pas
      * @return string
@@ -86,6 +97,10 @@ class CsvService
 
     /**
      * permet de 'slugifier' le titre
+     *
+     * @param string $title le titre à transformer
+     *
+     * @return string|string[]|null
      */
     private function slugify(string $title)
     {
