@@ -31,7 +31,7 @@ class ImportCsvCommand extends Command
      */
     public function __construct(CsvService $csvService)
     {
-        $this->csvService =$csvService;
+        $this->csvService = $csvService;
 
         parent::__construct();
     }
@@ -41,8 +41,7 @@ class ImportCsvCommand extends Command
         $this
             ->setDescription('Affiche une grille d\'information à partir d\'un ficher csv')
             ->addArgument('path', InputArgument::OPTIONAL, 'chemin du fichier csv à importer')
-            ->addOption('json', null, InputOption::VALUE_NONE, 'Afficher en JSON')
-        ;
+            ->addOption('json', null, InputOption::VALUE_NONE, 'Afficher en JSON');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -59,10 +58,12 @@ class ImportCsvCommand extends Command
 
         if ($arg1) {
             $io->comment(sprintf('L\'arguement passe est : %s', $arg1));
-            $cvsFile = array_map(function($cvsFile) {return str_getcsv($cvsFile, ';'); }, file('%kernel.root_dir%/../'.$arg1));
+            $cvsFile = array_map(function ($cvsFile) {
+                return str_getcsv($cvsFile, ';');
+            }, file('%kernel.root_dir%/../' . $arg1));
             $data = $this->csvService->extractCSVData($cvsFile);
 
-            foreach($data as $values){
+            foreach ($data as $values) {
                 $title = array_keys($values);
             }
 
@@ -71,7 +72,7 @@ class ImportCsvCommand extends Command
             $table->setRows($data);
             $table->render();
             //$io->success();
-        }else{
+        } else {
             throw new \LogicException('le chemin du fichier est manquant');
         }
 
