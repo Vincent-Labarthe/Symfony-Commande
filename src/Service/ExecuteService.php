@@ -32,7 +32,7 @@ class ExecuteService
      * @param string $path
      * @throws \Exception
      */
-    public function executeCmd(InputInterface $input, OutputInterface $output,string $path)
+    public function executeCmd(InputInterface $input, OutputInterface $output, string $path)
     {
         $cvsFile = array_map(function($cvsFile) {return str_getcsv($cvsFile, ';'); }, file('%kernel.root_dir%/../'.$path));
         $data = $this->csvService->extractCSVData($cvsFile);
@@ -43,9 +43,11 @@ class ExecuteService
             foreach($data as $values){
                 $title = array_keys($values);
             }
+
             $table = new Table($output);
             $table->setHeaders($title);
             $table->setRows($data);
+            $table->setStyle('borderless');
             $table->render();
         }
     }

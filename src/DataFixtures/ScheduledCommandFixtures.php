@@ -16,7 +16,7 @@ class ScheduledCommandFixtures extends Fixture
 
         $classes =
             [
-                '* 7-19 * * 1-7' => ['App\Command\ImportCsvCommande' => ['--path=./public/file/products.csv']]
+                '0 9-17 * * *' => ['App\Command\ImportCsvCommande' => ['--path=./public/file/products.csv']]
             ];
 
         foreach ($classes as $cron => $items) {
@@ -25,8 +25,9 @@ class ScheduledCommandFixtures extends Fixture
                     $scheduledCommand[] = [
                         'name' => constant($class . '::CONFIG')['title'],
                         'command' => constant($class . '::NAME'),
-                        'arguments' => implode(' ', $arguments),
+                        'arguments' => implode((array)' ', $arguments),
                         'cronExpression' => $cron,
+                        'priority'=>'1',
                         'disabled' => true,
                         'execute_immediately' => false
                     ];
@@ -39,7 +40,7 @@ class ScheduledCommandFixtures extends Fixture
     /**
      * Permet de sauvegarder en bdd des données
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager Le gestionnaire d'entitée
+     * @param ObjectManager $manager Le gestionnaire d'entitée
      * @param array                                      $data    Tableau contenant les données à sauvegarder
      */
     private function save(ObjectManager $manager, array $data)
@@ -50,7 +51,6 @@ class ScheduledCommandFixtures extends Fixture
             $newScheduledCommand->setCommand($scheduledCommand['command']);
             $newScheduledCommand->setArguments($scheduledCommand['arguments']);
             $newScheduledCommand->setCronExpression($scheduledCommand['cronExpression']);
-            $newScheduledCommand->setLogFile($scheduledCommand['logFile']);
             $newScheduledCommand->setPriority($scheduledCommand['priority']);
             $newScheduledCommand->setDisabled($scheduledCommand['disabled']);
             $newScheduledCommand->setExecuteImmediately($scheduledCommand['execute_immediately']);
