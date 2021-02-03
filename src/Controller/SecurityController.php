@@ -20,10 +20,9 @@ class SecurityController extends AbstractController
      * @Route("/login", name="login")
      *
      * @param AuthenticationUtils $authenticationUtils
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('homepage');
