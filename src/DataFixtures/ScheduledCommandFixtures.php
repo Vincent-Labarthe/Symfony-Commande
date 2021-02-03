@@ -5,6 +5,11 @@ namespace App\DataFixtures;
 use Doctrine\Persistence\ObjectManager;
 use JMose\CommandSchedulerBundle\Entity\ScheduledCommand;
 
+/**
+ * Class ScheduledCommandFixtures
+ *
+ * @package App\DataFixtures
+ */
 class ScheduledCommandFixtures extends Fixture
 {
     /**

@@ -34,6 +34,7 @@ class CsvService
                 $lists[] = array_combine($data['title'], array_values($row));
             }
 
+            //on boucle sur le tableau pour formater les données
             foreach($lists as $key => $list){
                 $lists[$key]['created_at'] = $this->formatDate($list['created_at']);
                 $lists[$key]['description'] = $this->formatTitle($list['description']);
