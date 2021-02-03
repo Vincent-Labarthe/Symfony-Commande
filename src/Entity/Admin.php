@@ -36,7 +36,7 @@ class Admin implements UserInterface
      */
     private $password;
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
@@ -46,12 +46,12 @@ class Admin implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUsername()
     {
         return (string)$this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $username)
     {
         $this->username = $username;
 
@@ -61,7 +61,7 @@ class Admin implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles()
     {
         $roles = $this->roles;
         $roles[] = 'ROLE_ADMIN';
@@ -69,7 +69,7 @@ class Admin implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
 
@@ -79,12 +79,12 @@ class Admin implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return (string)$this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password)
     {
         $this->password = $password;
 

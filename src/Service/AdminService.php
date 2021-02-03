@@ -20,8 +20,8 @@ class AdminService
 
     /**
      * AdminService constructor.
-     * @param UserPasswordEncoderInterface $encode
-     * @param EntityManagerInterface $em
+     * @param UserPasswordEncoderInterface $encode Gestionnaire d'encoder
+     * @param EntityManagerInterface $em Gesionnaire d'entity
      */
     public function __construct(UserPasswordEncoderInterface $encode, EntityManagerInterface $em)
     {

@@ -16,34 +16,35 @@ class CsvService
     /**
      * Permet de transformer le ficher csv en array
      *
-     * @param array $cvsFile  les données à formater
+     * @param array $cvsFile les données à formater
      *
      * @return array|array[]
      * @throws \Exception
      */
     public function extractCSVData(array $cvsFile)
     {
-            // en se basant sur le fait que chaque fichier csv aura la meme structure
-            $data['title'] = $cvsFile[0];
-            unset($cvsFile[0]);
-            $data['title'];
-            $data['rows'] = $cvsFile;
+        // en se basant sur le fait que chaque fichier csv aura la meme structure
+        $data['title'] = $cvsFile[0];
+        unset($cvsFile[0]);
+        $data['title'];
+        $data['rows'] = $cvsFile;
 
-            //on combine le tableau pour remplace les clés par les titres
-            foreach ($data['rows'] as $row) {
-                $lists[] = array_combine($data['title'], array_values($row));
-            }
+        //on combine le tableau pour remplace les clés par les titres
+        foreach ($data['rows'] as $row) {
+            $lists[] = array_combine($data['title'], array_values($row));
+        }
 
-            //on boucle sur le tableau pour formater les données
-            foreach($lists as $key => $list){
-                $lists[$key]['created_at'] = $this->formatDate($list['created_at']);
-                $lists[$key]['description'] = $this->formatTitle($list['description']);
-                $lists[$key]['is_enabled'] = $this->trasnformIs_Enable($list['is_enabled']);
-                $lists[$key]['price'] = $this->formatPrice($list['price']);
-                $lists[$key]['slug'] = $this->slugify($list['title']);
-                unset($lists[$key]['currency']);
-            }
-            return $lists;
+        //on boucle sur le tableau pour formater les données
+        foreach ($lists as $key => $list) {
+            $lists[$key]['created_at'] = $this->formatDate($list['created_at']);
+            $lists[$key]['description'] = $this->formatTitle($list['description']);
+            $lists[$key]['is_enabled'] = $this->trasnformIs_Enable($list['is_enabled']);
+            $lists[$key]['price'] = $this->formatPrice($list['price']);
+            $lists[$key]['slug'] = $this->slugify($list['title']);
+            unset($lists[$key]['currency']);
+        }
+
+        return $lists;
     }
 
     /**
@@ -68,7 +69,8 @@ class CsvService
      */
     private function formatTitle($title)
     {
-        $value =['/(<br\ ?\/?>)+/', '/\\\r/'];
+        $value = ['/(<br\ ?\/?>)+/', '/\\\r/'];
+
         return preg_replace($value, "\n", $title);
     }
 

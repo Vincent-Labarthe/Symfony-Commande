@@ -32,7 +32,7 @@ class ScheduledCommandFixtures extends Fixture
                         'command' => constant($class . '::NAME'),
                         'arguments' => implode((array)' ', $arguments),
                         'cronExpression' => $cron,
-                        'priority'=>'1',
+                        'priority' => '1',
                         'disabled' => true,
                         'execute_immediately' => false
                     ];
@@ -46,7 +46,7 @@ class ScheduledCommandFixtures extends Fixture
      * Permet de sauvegarder en bdd des données
      *
      * @param ObjectManager $manager Le gestionnaire d'entitée
-     * @param array                                      $data    Tableau contenant les données à sauvegarder
+     * @param array         $data    Tableau contenant les données à sauvegarder
      */
     private function save(ObjectManager $manager, array $data)
     {
