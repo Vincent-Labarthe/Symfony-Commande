@@ -16,12 +16,12 @@ class CsvService
     /**
      * Permet de transformer le ficher csv en array
      *
-     * @param $cvsFile le fichier CSV
+     * @param array $cvsFile  les données à formater
      *
      * @return array|array[]
      * @throws \Exception
      */
-    public function extractCSVData($cvsFile)
+    public function extractCSVData(array $cvsFile)
     {
             // en se basant sur le fait que chaque fichier csv aura la meme structure
             $data['title'] = $cvsFile[0];
@@ -34,8 +34,9 @@ class CsvService
                 $lists[] = array_combine($data['title'], array_values($row));
             }
 
+            //on boucle sur le tableau pour formater les données
             foreach($lists as $key => $list){
-                $lists[$key]['created_at'] = $this->formateDate($list['created_at']);
+                $lists[$key]['created_at'] = $this->formatDate($list['created_at']);
                 $lists[$key]['description'] = $this->formatTitle($list['description']);
                 $lists[$key]['is_enabled'] = $this->trasnformIs_Enable($list['is_enabled']);
                 $lists[$key]['price'] = $this->formatPrice($list['price']);
@@ -53,7 +54,7 @@ class CsvService
      * @return string
      * @throws \Exception
      */
-    private function formateDate(string $createAt)
+    private function formatDate(string $createAt)
     {
         $date = new DateTime($createAt);
 
